@@ -5,11 +5,11 @@ import SwiftSyntaxMacrosTestSupport
 import XCTest
 import MacroTesting
 
-#if canImport(SwiftHeroesMacros)
-import SwiftHeroesMacros
+#if canImport(MacrosTalkMacros)
+import MacrosTalkMacros
 #endif
 
-final class SwiftHeroesTests: XCTestCase {
+final class MacrosTalkTests: XCTestCase {
     func testCased() throws {
         
     }

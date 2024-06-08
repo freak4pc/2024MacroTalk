@@ -26,7 +26,7 @@ public struct StringifyMacro: ExpressionMacro {
 }
 
 @main
-struct SwiftHeroesPlugin: CompilerPlugin {
+struct MacrosTalkPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         StringifyMacro.self
     ]
