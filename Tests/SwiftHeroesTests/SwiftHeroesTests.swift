@@ -9,7 +9,10 @@ import MacroTesting
 import MacrosTalkMacros
 #endif
 
-@Test("Generates properties and boolean for each case")
-func testCased() async throws {
+@Suite("Cased Macro")
+struct CasedTests {
+    @Test("Generates properties and boolean for each case")
+    func testCased() async throws {
 
+    }
 }

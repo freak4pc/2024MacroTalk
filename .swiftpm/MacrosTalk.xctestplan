@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "2E493D95-2C54-4416-9FB2-2047F6443008",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "MacrosTalkTests",
+        "name" : "MacrosTalkTests"
+      }
+    }
+  ],
+  "version" : 1
+}
