@@ -28,6 +28,7 @@ public struct StringifyMacro: ExpressionMacro {
 @main
 struct MacrosTalkPlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        StringifyMacro.self
+        StringifyMacro.self,
+        CasedMacro.self
     ]
 }
