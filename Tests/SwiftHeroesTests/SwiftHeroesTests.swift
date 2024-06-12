@@ -2,17 +2,14 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import Testing
+import XCTest
 import MacroTesting
 
 #if canImport(MacrosTalkMacros)
 import MacrosTalkMacros
 #endif
 
-
-@Suite("Cased Macro")
-struct CasedTests {
-    @Test("Generates properties and boolean for each case")
+class CasedTests: XCTestCase {
     func testCased() async throws {
         assertMacro(["Cased": CasedMacro.self]) {
         """
@@ -88,7 +85,6 @@ struct CasedTests {
         }
     }
 
-    @Test("Macro attached to non-enum type")
     func testNotAnEnum() async throws {
         assertMacro(["Cased": CasedMacro.self]) {
         """
