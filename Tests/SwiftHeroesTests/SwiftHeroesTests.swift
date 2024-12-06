@@ -2,102 +2,107 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 import SwiftSyntaxMacrosTestSupport
-import XCTest
+import Testing
 import MacroTesting
 
 #if canImport(MacrosTalkMacros)
 import MacrosTalkMacros
 #endif
 
-class CasedTests: XCTestCase {
-    func testCased() async throws {
+@Suite
+struct CasedTests {
+    @Test("@Cased on struct")
+    func testCasedStruct() throws {
         assertMacro(["Cased": CasedMacro.self]) {
-        """
-        @Cased
-        enum Membership {
-            case nonMember
-            case user(User, Team)
-            case team(Team)
-            case company(Company)
-        }
-        """
-        } expansion: {
-        """
-        enum Membership {
-            case nonMember
-            case user(User, Team)
-            case team(Team)
-            case company(Company)
-
-            var isNonMember: Bool {
-                if case .nonMember = self {
-                    return true
-                }
-                return false
+            """
+            @Cased
+            struct NotAnEnum {
             }
-
-            var isUser: Bool {
-                if case .user = self {
-                    return true
-                }
-                return false
+            """
+        } diagnostics: {
+            """
+            @Cased
+            ┬─────
+            ╰─ 🛑 @Cased can only be attached to enums
+            struct NotAnEnum {
             }
-
-            var user: (User, Team)? {
-                guard case let .user(e0, e1) = self else {
-                    return nil
-                }
-
-                return (e0, e1)
-            }
-
-            var isTeam: Bool {
-                if case .team = self {
-                    return true
-                }
-                return false
-            }
-
-            var team: Team? {
-                guard case let .team(element) = self else {
-                    return nil
-                }
-
-                return element
-            }
-
-            var isCompany: Bool {
-                if case .company = self {
-                    return true
-                }
-                return false
-            }
-
-            var company: Company? {
-                guard case let .company(element) = self else {
-                    return nil
-                }
-
-                return element
-            }
-        }
-        """
+            """
         }
     }
 
-    func testNotAnEnum() async throws {
+    @Test("@Cased on enum")
+    func testCased() async throws {
         assertMacro(["Cased": CasedMacro.self]) {
-        """
-        @Cased
-        struct NotAnEnum {}
-        """
-        } diagnostics: {
-        """
-        @Cased
-        ┬─────
-        ╰─ 🛑 @Cased can only be attached to enums
-        struct NotAnEnum {}
-        """
+            """
+            @Cased
+            enum Membership {
+                case nonMember
+                case user(User, Team)
+                case team(Team)
+                case company(Company)
+            }
+            """
+        } expansion: {
+            """
+            enum Membership {
+                case nonMember
+                case user(User, Team)
+                case team(Team)
+                case company(Company)
+
+                var isNonMember: Bool {
+                    if case .nonMember = self {
+                        return true
+                    }
+                    return false
+                }
+
+                var isUser: Bool {
+                    if case .user = self {
+                        return true
+                    }
+                    return false
+                }
+
+                var user: (User, Team)? {
+                    guard case let .user(e0, e1) = self else {
+                        return nil
+                    }
+
+                    return (e0, e1)
+                }
+
+                var isTeam: Bool {
+                    if case .team = self {
+                        return true
+                    }
+                    return false
+                }
+
+                var team: Team? {
+                    guard case let .team(element) = self else {
+                        return nil
+                    }
+
+                    return element
+                }
+
+                var isCompany: Bool {
+                    if case .company = self {
+                        return true
+                    }
+                    return false
+                }
+
+                var company: Company? {
+                    guard case let .company(element) = self else {
+                        return nil
+                    }
+
+                    return element
+                }
+            }
+            """
         }
     }
 }
