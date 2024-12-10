@@ -51,7 +51,7 @@ public struct CasedMacro: MemberMacro {
                     }
                     """
                 )
-            case 2:
+            case 2...:
                 let tuple = associatedTypes.map(\.text).joined(separator: ", ")
                 let args = associatedTypes.enumerated()
                     .map { idx, _ in "e\(idx)" }
